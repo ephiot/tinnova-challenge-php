@@ -5,17 +5,17 @@ namespace App\Console\Commands;
 use App\Services\ElectionCalculator;
 use Illuminate\Console\Command;
 
-class Exercise1 extends Command
+class ExerciseElection extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'exercise:1  {--total-voters=1000 : Total voters} \
-                                        {--valid-votes=800 : Valid votes} \
-                                        {--blank-votes=150 : Blank votes} \
-                                        {--null-votes=50 : Null Votes}';
+    protected $signature = 'exercise:election   {--total-voters=1000 : Total voters} \
+                                                {--valid-votes=800 : Valid votes} \
+                                                {--blank-votes=150 : Blank votes} \
+                                                {--null-votes=50 : Null Votes}';
 
     /**
      * The console command description.
