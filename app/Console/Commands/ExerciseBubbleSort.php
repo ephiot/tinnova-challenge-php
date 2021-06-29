@@ -12,7 +12,7 @@ class ExerciseBubbleSort extends Command
      *
      * @var string
      */
-    protected $signature = 'exercise:2 {--list=5,3,2,4,7,1,0,6 : Raw list (comma separated list} {--step-by-step : Output step-by-step execution}';
+    protected $signature = 'exercise:bubble-sort {--list=5,3,2,4,7,1,0,6 : Raw list (comma separated list} {--step-by-step : Output step-by-step execution}';
 
     /**
      * The console command description.
