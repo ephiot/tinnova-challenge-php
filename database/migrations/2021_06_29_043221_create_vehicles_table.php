@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class CreateVehiclesTable extends Migration
@@ -21,7 +22,11 @@ class CreateVehiclesTable extends Migration
             $table->text('description');
             $table->boolean('sold');
             $table->timestamps();
+            $table->softDeletes();
         });
+
+        // Because Laravel doesn't support full text search migration
+        DB::statement('ALTER TABLE `vehicles` ADD FULLTEXT INDEX vehicle_search_index (vehicle, brand, year, description, sold, created_at)');
     }
 
     /**
@@ -31,6 +36,9 @@ class CreateVehiclesTable extends Migration
      */
     public function down()
     {
+        Schema::table('vehicles', function($table) {
+            $table->dropIndex('vehicle_search_index');
+        });    
         Schema::dropIfExists('vehicles');
     }
 }

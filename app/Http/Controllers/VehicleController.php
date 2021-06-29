@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\DataMapper\Vehicle as DataMapperVehicle;
+use App\Http\Requests\VehicleStore;
 use App\Models\Vehicle;
+use App\Transformers\VehicleRecord;
 use Illuminate\Http\Request;
 
 class VehicleController extends Controller
@@ -14,7 +17,24 @@ class VehicleController extends Controller
      */
     public function index()
     {
-        //
+        $vehicles = Vehicle::all();
+
+        return fractal($vehicles, new VehicleRecord())->respond(200, [], JSON_PRETTY_PRINT);
+    }
+
+    /**
+     * Find resources in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function find(VehicleStore $request)
+    {
+        $terms = $request->input('q');
+
+        $vehicles = Vehicle::searchFor($terms);
+
+        return fractal($vehicles, new VehicleRecord())->respond(201, [], JSON_PRETTY_PRINT);
     }
 
     /**
@@ -23,9 +43,13 @@ class VehicleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(VehicleStore $request)
     {
-        //
+        $dto = (new DataMapperVehicle())->mapVehicleStore2VehicleDTO($request);
+
+        $vehicle = Vehicle::createFromDTO($dto);
+
+        return fractal($vehicle, new VehicleRecord())->respond(201, [], JSON_PRETTY_PRINT);
     }
 
     /**
@@ -36,7 +60,7 @@ class VehicleController extends Controller
      */
     public function show(Vehicle $vehicle)
     {
-        //
+        return fractal($vehicle, new VehicleRecord())->respond(200, [], JSON_PRETTY_PRINT);
     }
 
     /**
@@ -48,7 +72,11 @@ class VehicleController extends Controller
      */
     public function update(Request $request, Vehicle $vehicle)
     {
-        //
+        $dto = (new DataMapperVehicle())->mapVehicleStore2VehicleDTO($request);
+
+        $vehicle = Vehicle::updateFromDTO($dto);
+
+        return fractal($vehicle, new VehicleRecord())->respond(200, [], JSON_PRETTY_PRINT);
     }
 
     /**
@@ -59,6 +87,8 @@ class VehicleController extends Controller
      */
     public function destroy(Vehicle $vehicle)
     {
-        //
+        $vehicle->delete();
+
+        return fractal($vehicle, new VehicleRecord())->respond(200, [], JSON_PRETTY_PRINT);
     }
 }
