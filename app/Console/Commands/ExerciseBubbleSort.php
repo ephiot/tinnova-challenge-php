@@ -5,7 +5,7 @@ namespace App\Console\Commands;
 use App\Helpers\BubbleSort;
 use Illuminate\Console\Command;
 
-class Exercise1 extends Command
+class ExerciseBubbleSort extends Command
 {
     /**
      * The name and signature of the console command.
