@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DataMapper\Vehicle as DataMapperVehicle;
 use App\Http\Requests\VehicleStore;
+use App\Http\Requests\VehicleUpdate;
 use App\Models\Vehicle;
 use App\Transformers\VehicleRecord;
 use Illuminate\Http\Request;
@@ -28,13 +29,13 @@ class VehicleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function find(VehicleStore $request)
+    public function find(Request $request)
     {
         $terms = $request->input('q');
 
         $vehicles = Vehicle::searchFor($terms);
 
-        return fractal($vehicles, new VehicleRecord())->respond(201, [], JSON_PRETTY_PRINT);
+        return fractal($vehicles, new VehicleRecord())->respond(200, [], JSON_PRETTY_PRINT);
     }
 
     /**
@@ -49,7 +50,7 @@ class VehicleController extends Controller
 
         $vehicle = Vehicle::createFromDTO($dto);
 
-        return fractal($vehicle, new VehicleRecord())->respond(201, [], JSON_PRETTY_PRINT);
+        return fractal($vehicle, new VehicleRecord())->respond(200, [], JSON_PRETTY_PRINT);
     }
 
     /**
@@ -70,11 +71,11 @@ class VehicleController extends Controller
      * @param  \App\Models\Vehicle  $vehicle
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Vehicle $vehicle)
+    public function update(VehicleUpdate $request, Vehicle $vehicle)
     {
-        $dto = (new DataMapperVehicle())->mapVehicleStore2VehicleDTO($request);
+        $dto = (new DataMapperVehicle())->mapVehicleUpdate2VehicleDTO($request);
 
-        $vehicle = Vehicle::updateFromDTO($dto);
+        $vehicle->updateFromDTO($dto);
 
         return fractal($vehicle, new VehicleRecord())->respond(200, [], JSON_PRETTY_PRINT);
     }

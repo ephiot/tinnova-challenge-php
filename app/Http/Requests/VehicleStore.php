@@ -28,7 +28,7 @@ class VehicleStore extends FormRequest
             'brand' => 'string|required|min:3',
             'year' => 'required|date_format:Y|before_or_equal:' . date('Y'),
             'description' => 'string|required|max:2048',
-            'sold' => 'sometimes|required|boolean'
+            'sold' => 'required|boolean'
         ];
     }
 }

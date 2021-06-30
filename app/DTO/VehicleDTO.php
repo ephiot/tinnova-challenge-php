@@ -8,29 +8,29 @@ use DateTime;
 class VehicleDTO
 {
     /**
-     * @var  string  $vehicle  Vehicle name
+     * @var  ?string  $vehicle  Vehicle name
      */
-    public string $vehicle;
+    public ?string $vehicle;
 
     /**
-     * @var  string  $brand  Brand name
+     * @var  ?string  $brand  Brand name
      */
-    public string $brand;
+    public ?string $brand;
 
     /**
-     * @var  int  $year  Vehicle launch year
+     * @var  ?int  $year  Vehicle launch year
      */
-    protected int $year;
+    protected ?int $year;
 
     /**
-     * @var  string  $description  Vehicle description
+     * @var  ?string  $description  Vehicle description
      */
-    public string $description;
+    public ?string $description;
 
     /**
-     * @var  bool  $sold  If true, vehicle was sold
+     * @var  ?bool  $sold  If true, vehicle was sold
      */
-    public bool $sold = false;
+    public ?bool $sold = false;
 
     /**
      * Sanitize year direct assignment
@@ -38,10 +38,12 @@ class VehicleDTO
     public function __set(string $attr, mixed $value): void
     {
         if ($attr === 'year') {
-            $minYear = (int) date('Y', 0);
-            $maxYear = (int) date('Y');
-            if (!is_int($value) || (int) $value < $minYear || (int) $value > $maxYear) {
-                throw new InvalidYearException();
+            if (!is_null($value)) {
+                $minYear = (int) date('Y', 0);
+                $maxYear = (int) date('Y');
+                if (!is_int($value) || (int) $value < $minYear || (int) $value > $maxYear) {
+                    throw new InvalidYearException();
+                }
             }
             $this->year = $value;
             return;
@@ -61,19 +63,19 @@ class VehicleDTO
     /**
      * Constructor
      * 
-     * @param  string  $vehicle?  Vehicle name
-     * @param  string  $brand?  Brand name
-     * @param  int  $year?  Vehicle launch year
-     * @param  string  $description?  Vehicle description
-     * @param  bool  $sold?  If true, vehicle was sold
+     * @param  ?string  $vehicle  Vehicle name
+     * @param  ?string  $brand  Brand name
+     * @param  ?int  $year  Vehicle launch year
+     * @param  ?string  $description  Vehicle description
+     * @param  ?bool  $sold  If true, vehicle was sold
      * @return void
      */
     public function __construct(
-        string $vehicle = '',
-        string $brand = '',
-        int $year = 0,
-        string $description = '',
-        bool $sold = false
+        ?string $vehicle = null,
+        ?string $brand = null,
+        ?int $year = null,
+        ?string $description = null,
+        ?bool $sold = null
     ) {
         $this->setData($vehicle, $brand, $year, $description, $sold);
     }
@@ -81,19 +83,19 @@ class VehicleDTO
     /**
      * Set data
      * 
-     * @param  string  $vehicle?  Vehicle name
-     * @param  string  $brand?  Brand name
-     * @param  int  $year?  Vehicle launch year
-     * @param  string  $description?  Vehicle description
-     * @param  bool  $sold?  If true, vehicle was sold
+     * @param  ?string  $vehicle?  Vehicle name
+     * @param  ?string  $brand?  Brand name
+     * @param  ?int  $year?  Vehicle launch year
+     * @param  ?string  $description?  Vehicle description
+     * @param  ?bool  $sold?  If true, vehicle was sold
      * @return void
      */
     public function setData(
-        string $vehicle = '',
-        string $brand = '',
-        int $year = 0,
-        string $description = '',
-        bool $sold = false
+        ?string $vehicle = null,
+        ?string $brand = null,
+        ?int $year = null,
+        ?string $description = null,
+        ?bool $sold = null
     ) {
         $this->vehicle = $vehicle;
         $this->brand = $brand;

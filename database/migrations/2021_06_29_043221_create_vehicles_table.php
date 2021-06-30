@@ -18,7 +18,7 @@ class CreateVehiclesTable extends Migration
             $table->id();
             $table->string('vehicle');
             $table->string('brand');
-            $table->integer('year');
+            $table->string('year');
             $table->text('description');
             $table->boolean('sold');
             $table->timestamps();
@@ -26,7 +26,7 @@ class CreateVehiclesTable extends Migration
         });
 
         // Because Laravel doesn't support full text search migration
-        DB::statement('ALTER TABLE `vehicles` ADD FULLTEXT INDEX vehicle_search_index (vehicle, brand, year, description, sold, created_at)');
+        DB::statement('ALTER TABLE `vehicles` ADD FULLTEXT INDEX vehicle_search_index (vehicle, brand, year, description)');
     }
 
     /**

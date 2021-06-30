@@ -83,7 +83,7 @@ class VehicleDTOTest extends TestCase
     public function test_must_throw_exception_while_trying_to_bad_assign_vehicle_property()
     {
         $this->expectException(TypeError::class);
-        $this->expectExceptionMessage('Cannot assign DateTime to property App\DTO\VehicleDTO::$vehicle of type string');
+        $this->expectExceptionMessage('Cannot assign DateTime to property App\DTO\VehicleDTO::$vehicle of type ?string');
 
         $badValue = (new DateTime())->setTimestamp(0);
 
@@ -120,7 +120,7 @@ class VehicleDTOTest extends TestCase
     public function test_must_throw_exception_while_trying_to_bad_assign_brand_property()
     {
         $this->expectException(TypeError::class);
-        $this->expectExceptionMessage('Cannot assign DateTime to property App\DTO\VehicleDTO::$brand of type string');
+        $this->expectExceptionMessage('Cannot assign DateTime to property App\DTO\VehicleDTO::$brand of type ?string');
 
         $badValue = (new DateTime())->setTimestamp(0);
 
@@ -157,7 +157,7 @@ class VehicleDTOTest extends TestCase
     public function test_must_throw_exception_while_trying_to_bad_assign_description_property()
     {
         $this->expectException(TypeError::class);
-        $this->expectExceptionMessage('Cannot assign DateTime to property App\DTO\VehicleDTO::$description of type string');
+        $this->expectExceptionMessage('Cannot assign DateTime to property App\DTO\VehicleDTO::$description of type ?string');
 
         $badValue = (new DateTime())->setTimestamp(0);
 
@@ -261,7 +261,7 @@ class VehicleDTOTest extends TestCase
     public function test_must_throw_exception_while_trying_to_bad_assign_sold_property()
     {
         $this->expectException(TypeError::class);
-        $this->expectExceptionMessage('Cannot assign DateTime to property App\DTO\VehicleDTO::$sold of type bool');
+        $this->expectExceptionMessage('Cannot assign DateTime to property App\DTO\VehicleDTO::$sold of type ?bool');
 
         $badValue = (new DateTime());
 

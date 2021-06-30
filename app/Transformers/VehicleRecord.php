@@ -38,8 +38,8 @@ class VehicleRecord extends TransformerAbstract
             'year' => (int) $model->year,
             'description' => (string) $model->description,
             'sold' => (bool) $model->sold,
-            'created_at' => $model->created_at->format('d/m/Y H:i:s'),
-            'updated_at' => $model->updated_at->format('d/m/Y H:i:s')
+            'created_at' => $model->created_at, //->format('d/m/Y H:i:s'),
+            'updated_at' => $model->updated_at //->format('d/m/Y H:i:s')
         ];
     }
 }

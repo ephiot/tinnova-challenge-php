@@ -22,7 +22,11 @@ class VehicleFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'vehicle' => $this->faker->word(),
+            'brand' => $this->faker->word(),
+            'year' => $this->faker->year(),
+            'description' => $this->faker->paragraph(),
+            'sold' => $this->faker->boolean()
         ];
     }
 }

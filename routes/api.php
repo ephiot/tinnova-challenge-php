@@ -21,8 +21,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('veiculos', [VehicleController::class, 'index']);
 Route::get('veiculos/find', [VehicleController::class, 'find']);
-Route::get('veiculos/{id}', [VehicleController::class, 'show']);
+Route::get('veiculos/{vehicle}', [VehicleController::class, 'show']);
 Route::post('veiculos', [VehicleController::class, 'store']);
-Route::put('veiculos/{id}', [VehicleController::class, 'update']);
-Route::patch('veiculos/{id}', [VehicleController::class, 'update']);
-Route::delete('veiculos/{id}', [VehicleController::class, 'destroy']);
+Route::put('veiculos/{vehicle}', [VehicleController::class, 'update']);
+Route::patch('veiculos/{vehicle}', [VehicleController::class, 'update']);
+Route::delete('veiculos/{vehicle}', [VehicleController::class, 'destroy']);

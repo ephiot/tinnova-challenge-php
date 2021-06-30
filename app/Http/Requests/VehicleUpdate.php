@@ -13,7 +13,7 @@ class VehicleUpdate extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,11 @@ class VehicleUpdate extends FormRequest
     public function rules()
     {
         return [
-            //
+            'vehicle' => 'sometimes|string|required|min:3',
+            'brand' => 'sometimes|string|required|min:3',
+            'year' => 'sometimes|required|date_format:Y|before_or_equal:' . date('Y'),
+            'description' => 'sometimes|string|required|max:2048',
+            'sold' => 'sometimes|required|boolean'
         ];
     }
 }
