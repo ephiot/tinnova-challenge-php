@@ -59,4 +59,17 @@ class VehicleBrandsFixture
             "Yamaha"
         ];
     }
+
+    /**
+     * Get brands formatted to select list
+     * 
+     * @return array
+     */
+    public static function getBrands4Select(): array
+    {
+        return array_reduce(self::getAllBrands(), function ($carry, $brand) {
+            $carry[] = ['label' => $brand, 'value' => $brand];
+            return $carry;
+        }, []);
+    }
 }

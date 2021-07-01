@@ -1,5 +1,6 @@
 <?php
 
+use App\Helpers\VehicleBrandsFixture;
 use App\Http\Controllers\VehicleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -26,3 +27,7 @@ Route::post('veiculos', [VehicleController::class, 'store']);
 Route::put('veiculos/{vehicle}', [VehicleController::class, 'update']);
 Route::patch('veiculos/{vehicle}', [VehicleController::class, 'update']);
 Route::delete('veiculos/{vehicle}', [VehicleController::class, 'destroy']);
+
+Route::get('marcas', function () {
+  return response()->json(['data' => VehicleBrandsFixture::getBrands4Select()], 200);
+});
