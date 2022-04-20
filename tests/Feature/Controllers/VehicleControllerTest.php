@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Testing\Fluent\AssertableJson;
@@ -9,7 +10,22 @@ use Tests\TestCase;
 
 class VehicleControllerTest extends TestCase
 {
-    use DatabaseTransactions;
+    use DatabaseMigrations; //RefreshDatabase, DatabaseTransactions;
+
+    /**
+     * Must seed all database
+     * 
+     * @return void
+     */
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        // seed the database
+        // $this->artisan('db:seed');
+        // alternatively you can call
+        $this->seed();
+    }
 
     /**
      * Must return all vehicles
@@ -117,7 +133,7 @@ class VehicleControllerTest extends TestCase
         $response->assertJson(fn (AssertableJson $json) =>
             $json->where('data.vehicle', 'novo 2')
                  ->where('data.brand', 'novo 2')
-                 ->where('data.year', 2021)
+                 ->where('data.year', (int) date('Y'))
                  ->where('data.description', 'Car description')
                  ->where('data.sold', true)
                  ->etc()

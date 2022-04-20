@@ -25,8 +25,10 @@ class CreateVehiclesTable extends Migration
             $table->softDeletes();
         });
 
-        // Because Laravel doesn't support full text search migration
-        DB::statement('ALTER TABLE `vehicles` ADD FULLTEXT INDEX vehicle_search_index (vehicle, brand, year, description)');
+        if (env('DB_CONNECTION') === 'mysql') {
+            // Because Laravel doesn't support full text search migration
+            DB::statement('ALTER TABLE `vehicles` ADD FULLTEXT INDEX vehicle_search_index (vehicle, brand, year, description)');
+        }
     }
 
     /**
@@ -36,9 +38,11 @@ class CreateVehiclesTable extends Migration
      */
     public function down()
     {
-        Schema::table('vehicles', function($table) {
-            $table->dropIndex('vehicle_search_index');
-        });    
+        if (env('DB_CONNECTION') === 'mysql') {
+            Schema::table('vehicles', function ($table) {
+                $table->dropIndex('vehicle_search_index');
+            });
+        }
         Schema::dropIfExists('vehicles');
     }
 }

@@ -84,10 +84,18 @@ class Vehicle extends Model
      */
     public static function searchFor(string $terms): Collection
     {
-        return self::whereRaw(
-            "MATCH (vehicle, brand, year, description) AGAINST (? IN NATURAL LANGUAGE MODE)",
-            [$terms]
-        )->get();
+        if (env('DB_CONNECTION') === 'mysql') {
+            return self::whereRaw(
+                "MATCH (vehicle, brand, year, description) AGAINST (? IN NATURAL LANGUAGE MODE)",
+                [$terms]
+            )->get();
+        }
+
+        return self::where('vehicle', 'like', "%{$terms}%")
+                   ->orWhere('brand', 'like', "%{$terms}%")
+                   ->orWhere('year', 'like', "%{$terms}%")
+                   ->orWhere('description', 'like', "%{$terms}%")
+                   ->get();
     }
 
     /**
