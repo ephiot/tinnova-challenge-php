@@ -49,3 +49,24 @@ jobs:
           target: ''
           rules_file_name: '.zap/rules.tsv'
           cmd_options: '-a'
+
+  depchecktest:
+    runs-on: ubuntu-latest
+    name: depcheck_test
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: main
+      - name: Depcheck
+        uses: dependency-check/Dependency-Check_Action@1.0.0
+        id: Depcheck
+        with:
+          project: 'tinnova-challenge-php'
+          path: '.'
+          format: 'HTML'
+      - name: Upload Test results
+        uses: actions/upload-artifact@master
+        with:
+          name: Depcheck report
+          path: ${{github.workspace}}/reports
