@@ -46,7 +46,7 @@ jobs:
         uses: zaproxy/action-baseline@v0.3.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          target: ''
+          target: 'https://www.zaproxy.org/'
           rules_file_name: '.zap/rules.tsv'
           cmd_options: '-a'
 
